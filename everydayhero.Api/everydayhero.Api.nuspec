@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>EverydayHero</id>
+    <authors>EverydayHero</authors>
+    <owners>EverydayHero</owners>
+    <version>$version$</version>
+    <licenseUrl>https://everydayhero.com/</licenseUrl>
+    <projectUrl>https://everydayhero.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>EverydayHero .Net API for integration with the REST Services</description>
+    <releaseNotes />
+    <references>
+      <group targetFramework="net40">
+        <reference file="$id$.dll" />
+      </group>
+    </references>
+  </metadata>
+  <files>
+    <file src="readme.md" />
+  </files>
+</package>
