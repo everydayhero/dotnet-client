@@ -5,22 +5,17 @@ The Everyday Hero Registration API is a .Net wrapper that communicates with the 
 
 ## Quick Start
 ```
-string clientId = "...";
-string clientSecret = "...";
-try
-{
-    var client = new Client("https://edheroz.com", clientId, clientSecret);
-    List<Charity> charities = client.Charity.GetCharities(new[] {"au-123"});
-}
-catch (AuthenticationFailedException ex)
-{
-    string error = ex.Result.Error;
-    string errorDescription = ex.Result.ErrorDescription;
-}
-catch (RequestFailedException ex)
-{
-    //Check server error: ex.Result.Error ...
-}
+Dim clientId As String = "..."
+Dim clientSecret As String = "..."
+Try
+	Dim client = New Client("https://edheroz.com", clientId, clientSecret)
+	Dim charities As List(Of Charity) = client.Charity.GetCharities(New String() {"au-123"})
+Catch ex As AuthenticationFailedException
+	Dim [error] As String = ex.Result.Error
+	Dim errorDescription As String = ex.Result.ErrorDescription
+Catch ex As RequestFailedException
+	'Check server error: ex.Result.Error ...
+End Try
 ```
 
 ## Current Capabilities
@@ -47,56 +42,54 @@ If the authentication fails, you will receive an `AuthenticationFailedException`
 
 **Example using a client id and secret:**
 ```
-	string clientId = "...";
-	string clientSecret = "...";
-	var client = new Client("https://edheroz.com", clientId, clientSecret);
+Dim clientId As String = "..."
+Dim clientSecret As String = "..."
+Dim client = New Client("https://edheroz.com", clientId, clientSecret)
 ```
 **Example using an access token:**
 ```
-	string accessToken = "...";
-	var client = new Client("https://edheroz.com", accessToken);
+Dim accessToken As String = "..."
+Dim client = New Client("https://edheroz.com", accessToken)
 ```
 
 **To create a page**
 ```
-var newPageInfo = new PageCreationFields
-{
-    birthday = "1980-01-01",
-    campaign_id = "au-122",
-    charity_id = "au-20",
-    user_email = "myEmail@MyAddress.com.au",
-    user_name = "username"
-};
-var page = client.Pages.CreateSupporterPage(newPageInfo);
+Dim newPageInfo = New PageCreationFields With {
+	.birthday = "1980-01-01",
+	.campaign_id = "au-122",
+	.charity_id = "au-20",
+	.user_email = "myEmail@MyAddress.com.au",
+	.user_name = "username"
+}
+Dim page = client.Pages.CreateSupporterPage(newPageInfo)
 ```
 
 **To update a page**
 ```
- var pageInfo = new PageCreationFields
-{
-    target = "500",
-    name = "Fred",
-    expires_at = DateTime.Now.AddDays(14).ToString("O"),
-    slug = "TheSlug" ,
-    birthday = "1980-01-01",
-    campaign_id = "...",
-    charity_id = "...",
-    user_email = "my@email.address",
-    user_name = "My User"
-};
-var client = new Client(TestConfig.BaseServiceUrl, TestConfig.ClientId, TestConfig.ClientSecret);
-Page result = client.Pages.UpdateSupporterPage(1, pageInfo);
+Dim pageInfo = New PageCreationFields With {
+	.target = "500",
+	.name = "Fred",
+	.expires_at = DateTime.Now.AddDays(14).ToString("O"),
+	.slug = "TheSlug",
+	.birthday = "1980-01-01",
+	.campaign_id = "...",
+	.charity_id = "...",
+	.user_email = "my@email.address",
+	.user_name = "My User"
+}
+Dim result = client.Pages.UpdateSupporterPage(1, pageInfo)
+
 ```
 
 **To get pages using pagination**
 ```
-var campaign_id = "...";
-var result = client.Pages.GetSupporterPages(1, 10, campaign_id);
+Dim campaign_id = "..."
+Dim result = client.Pages.GetSupporterPages(1, 10, campaign_id)
 ```
 
 **To get pages using known ids**
 ```
-var pages = client.Pages.GetSupporterPages(new[] {1234,5678});
+Dim pages = client.Pages.GetSupporterPages(New Integer(){1234, 5678})
 ```
 
 ## Error handling
