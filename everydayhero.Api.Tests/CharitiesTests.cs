@@ -11,7 +11,7 @@ namespace everydayhero.Api.Tests
         public void GetCharities()
         {
             var client = GetClient();
-            var charities = client.Charity.GetCharities(new[] {TestConfig.TestData_Charity_Uid});
+            var charities = client.Charity.GetCharities(10, 1, new[] { TestConfig.TestData_Charity_Uid });
             Assert.IsNotNull(charities);
             Assert.IsTrue(charities.Count > 0, "No charities found");
         }
@@ -20,7 +20,7 @@ namespace everydayhero.Api.Tests
         public void GetCharity()
         {
             var client = GetClient();
-            var charities = client.Charity.GetCharities(new[] { TestConfig.TestData_Charity_Uid });
+            var charities = client.Charity.GetCharities(10, 1, new[] { TestConfig.TestData_Charity_Uid });
             Assert.IsNotNull(charities);
             Assert.IsTrue(charities.Count > 0, "No charities found");
 
