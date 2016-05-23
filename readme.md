@@ -67,7 +67,8 @@ var newPageInfo = new PageCreationFields
     user_email = "myEmail@MyAddress.com.au",
     user_name = "username"
 };
-var page = client.Pages.CreateSupporterPage(newPageInfo);
+var pageCreatedResult = client.Pages.CreateSupporterPage(newPageInfo);
+var activationUrl = pageCreatedResult.activation_url;
 ```
 
 **To update a page**

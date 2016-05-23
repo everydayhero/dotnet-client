@@ -17,6 +17,6 @@
     </references>
   </metadata>
   <files>
-    <file src="readme.md" />
+    <file src="../readme.md" />
   </files>
 </package>

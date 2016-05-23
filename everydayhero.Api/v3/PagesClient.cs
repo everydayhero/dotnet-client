@@ -18,13 +18,13 @@ namespace everydayhero.Api.v3
             RestClient = restClient;
         }
 
-        public PageCreated CreateSupporterPage(PageCreationFields options)
+        public PageCreatedResult CreateSupporterPage(PageCreationFields options)
         {
             var request = CreateRequest(EndPointConstants.ApiBaseV3, ServiceNameConstants.Pages, null, Method.POST, options);
             var result = RestClient.Execute<PageCreatedResult>(request);
             if (result.StatusCode == HttpStatusCode.OK || result.StatusCode == HttpStatusCode.Created)
             {
-                return result.Data.page;
+                return result.Data;
             }
             throw ExceptionHandler.GetFailedRequestException(result);
         }

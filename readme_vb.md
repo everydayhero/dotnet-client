@@ -61,7 +61,8 @@ Dim newPageInfo = New PageCreationFields With {
 	.user_email = "myEmail@MyAddress.com.au",
 	.user_name = "username"
 }
-Dim page = client.Pages.CreateSupporterPage(newPageInfo)
+Dim pageCreatedResult = client.Pages.CreateSupporterPage(newPageInfo)
+Dim activationUrl = pageCreatedResult.activation_url
 ```
 
 **To update a page**

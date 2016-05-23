@@ -13,8 +13,9 @@ namespace everydayhero.Api.Tests
         {
             var client = GetClient();
             var newPageInfo = GetNewPageInfo();
-            var page = client.Pages.CreateSupporterPage(newPageInfo);
-            Assert.IsNotNull(page);
+            var pageCreatedResult = client.Pages.CreateSupporterPage(newPageInfo);
+            Assert.IsNotNull(pageCreatedResult);
+            Assert.IsFalse(string.IsNullOrEmpty(pageCreatedResult.activation_url));
         }
 
         private static PageCreationFields GetNewPageInfo()
@@ -33,7 +34,7 @@ namespace everydayhero.Api.Tests
             };
             return newPageInfo;
         }
-        
+
 
         [TestMethod]
         public void GetSupporterPages()
@@ -48,22 +49,24 @@ namespace everydayhero.Api.Tests
             var pages = client.Pages.GetSupporterPages(new[] { result[0].id, result[1].id });
             Assert.IsTrue(result[0].id == pages[0].id || result[0].id == pages[1].id, "Data differs");
         }
-       
+
 
         [TestMethod]
         public void UpdateSupporterPage()
         {
             var client = GetClient();
             var newPageInfo = GetNewPageInfo();
-            var createdPage = client.Pages.CreateSupporterPage(newPageInfo);
-            Assert.IsNotNull(createdPage);
+            var pageCreatedResult = client.Pages.CreateSupporterPage(newPageInfo);
+            Assert.IsNotNull(pageCreatedResult);
+            Assert.IsFalse(string.IsNullOrEmpty(pageCreatedResult.activation_url));
 
-            List<Page> pages = client.Pages.GetSupporterPages(new[] {createdPage.id});
+            var pages = client.Pages.GetSupporterPages(new[] { pageCreatedResult.page.id });
             Assert.IsNotNull(pages);
             Assert.AreEqual(1, pages.Count);
-            Assert.AreEqual(createdPage.id, pages[0].id);
+            Assert.AreEqual(pageCreatedResult.page.id, pages[0].id);
 
             newPageInfo.name = "Test1Update";
+            newPageInfo.slug = pageCreatedResult.page.slug;
             var updatedPage = client.Pages.UpdateSupporterPage(pages[0].id, newPageInfo);
             Assert.AreEqual(newPageInfo.name, updatedPage.name, "The name did not update");
         }

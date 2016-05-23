@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "everydayhero.Api", "everydayhero.Api\everydayhero.Api.csproj", "{DCDEB3C8-121F-4D25-90CB-E1ACD8E9A299}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "everydayhero.Api.Tests", "everydayhero.Api.Tests\everydayhero.Api.Tests.csproj", "{18AE7B7F-6EEA-4816-A1C5-1BA5E0145CB5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{CAE2194D-32B6-4230-A458-2669B7300100}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+		readme_vb.md = readme_vb.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
