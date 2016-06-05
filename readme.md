@@ -65,7 +65,8 @@ var newPageInfo = new PageCreationFields
     campaign_id = "au-122",
     charity_id = "au-20",
     user_email = "myEmail@MyAddress.com.au",
-    user_name = "username"
+    user_name = "username",
+    user_phone = "55556666"
 };
 var pageCreatedResult = client.Pages.CreateSupporterPage(newPageInfo);
 var activationUrl = pageCreatedResult.activation_url;
@@ -83,7 +84,8 @@ var pageInfo = new PageCreationFields
     campaign_id = "...",
     charity_id = "...",
     user_email = "my@email.address",
-    user_name = "My User"
+    user_name = "My User",
+    user_phone = "55556666"
 };
 var result = client.Pages.UpdateSupporterPage(1, pageInfo);
 ```

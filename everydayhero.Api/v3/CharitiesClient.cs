@@ -26,9 +26,9 @@ namespace everydayhero.Api.v3
             throw ExceptionHandler.GetFailedRequestException(result);
         }
 
-        public Charity GetCharity(string campaignId)
+        public Charity GetCharity(string charityId)
         {
-            var request = CreateRequest(EndPointConstants.ApiBaseV2, string.Format("{0}/{1}", ServiceNameConstants.Charities, campaignId), string.Empty, Method.GET);
+            var request = CreateRequest(EndPointConstants.ApiBaseV2, string.Format("{0}/{1}", ServiceNameConstants.Charities, charityId), string.Empty, Method.GET);
             var result = RestClient.Execute<CharityResult>(request);
             if (result.StatusCode == HttpStatusCode.OK)
             {

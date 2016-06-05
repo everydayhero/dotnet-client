@@ -30,6 +30,7 @@
 
         public string user_email { get; set; }
         public string user_name { get; set; }
+        public string user_phone { get; set; }
 
         /// <summary>
         ///     Your birthday, format “YYYY-MM-DD”. In some countries there are age restrictions on fundraising and further action

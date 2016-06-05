@@ -59,7 +59,8 @@ Dim newPageInfo = New PageCreationFields With {
 	.campaign_id = "au-122",
 	.charity_id = "au-20",
 	.user_email = "myEmail@MyAddress.com.au",
-	.user_name = "username"
+	.user_name = "username",
+	.user_phone = "55556666"
 }
 Dim pageCreatedResult = client.Pages.CreateSupporterPage(newPageInfo)
 Dim activationUrl = pageCreatedResult.activation_url
@@ -76,7 +77,8 @@ Dim pageInfo = New PageCreationFields With {
 	.campaign_id = "...",
 	.charity_id = "...",
 	.user_email = "my@email.address",
-	.user_name = "My User"
+	.user_name = "My User",
+	.user_phone = "55556666"
 }
 Dim result = client.Pages.UpdateSupporterPage(1, pageInfo)
 
