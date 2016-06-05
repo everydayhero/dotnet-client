@@ -30,6 +30,7 @@ namespace everydayhero.Api.Tests
                 campaign_id = TestConfig.TestData_Campaign_Uid,
                 charity_id = TestConfig.TestData_Charity_Uid,
                 user_email = TestConfig.TestData_UserEmail,
+                user_phone = "55556666",
                 user_name = "Test Dev"
             };
             return newPageInfo;
