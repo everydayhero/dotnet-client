@@ -35,11 +35,11 @@ namespace everydayhero.Api.Authentication
             _serviceUri = serviceUri;
             if (clientSecret == null)
             {
-                throw new ArgumentNullException("clientSecret");
+                throw new ArgumentNullException(nameof(clientSecret));
             }
             if (serviceUri == null)
             {
-                throw new ArgumentNullException("serviceUri");
+                throw new ArgumentNullException(nameof(serviceUri));
             }
 
             ClientId = clientId;
@@ -54,7 +54,7 @@ namespace everydayhero.Api.Authentication
             {
                 PreAuthenticate(client.Proxy);
             }
-            request.AddHeader("Authorization", string.Format("Bearer {0}", AccessToken.ToInsecureString()));
+            request.AddHeader("Authorization", $"Bearer {AccessToken.ToInsecureString()}");
         }
 
         public void Dispose()
@@ -139,8 +139,16 @@ namespace everydayhero.Api.Authentication
         /// <returns></returns>
         private HttpWebRequest CreateAuthenticationRequest(IWebProxy proxy)
         {
-            var requestUri = new Uri(_serviceUri, string.Format("{0}?&{1}={2}&{3}={4}&{5}={6}", EndPointConstants.OAuthEndPoint, EndPointConstants.OAuthUserNameKey, ClientId, EndPointConstants.OAuthSecretKey, ClientSecret.ToInsecureString(), EndPointConstants.GrantTypeKey, GrantTypeConstants.ClientCredentials));
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+            ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+            var requestUri = new Uri(_serviceUri,
+                $"{EndPointConstants.OAuthEndPoint}?&{EndPointConstants.OAuthUserNameKey}={ClientId}&{EndPointConstants.OAuthSecretKey}={ClientSecret.ToInsecureString()}&{EndPointConstants.GrantTypeKey}={GrantTypeConstants.ClientCredentials}");
             var request = (HttpWebRequest) WebRequest.Create(requestUri);
+            request.ProtocolVersion = HttpVersion.Version10;
+            request.ServicePoint.ConnectionLeaseTimeout = 5000;
+            request.ServicePoint.MaxIdleTime = 5000;
+            request.ServicePoint.ConnectionLimit = 1;
+            request.KeepAlive = false;
             if (proxy != null)
             {
                 request.Proxy = proxy;

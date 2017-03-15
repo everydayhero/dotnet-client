@@ -99,11 +99,11 @@ namespace everydayhero.Api.v3
         {
             if (serviceUrl == null)
             {
-                throw new ArgumentNullException("serviceUrl");
+                throw new ArgumentNullException(nameof(serviceUrl));
             }
             if (accessToken == null)
             {
-                throw new ArgumentNullException("accessToken");
+                throw new ArgumentNullException(nameof(accessToken));
             }
         }
         /// <summary>
@@ -116,15 +116,15 @@ namespace everydayhero.Api.v3
         {
             if (clientId == null)
             {
-                throw new ArgumentNullException("clientId");
+                throw new ArgumentNullException(nameof(clientId));
             }
             if (clientSecret == null)
             {
-                throw new ArgumentNullException("clientSecret");
+                throw new ArgumentNullException(nameof(clientSecret));
             }
             if (serviceUri == null)
             {
-                throw new ArgumentNullException("serviceUri");
+                throw new ArgumentNullException(nameof(serviceUri));
             }
         }
 

@@ -5,7 +5,10 @@
 $buildFile = "Release.msbuild"
 $outputPath = "bin\Release\."
 $msbuild = $Env:SystemRoot +"\Microsoft.Net\Framework64\v4.0.30319\msbuild.exe"
-$options = "/p:VisualStudioVersion=12.0"
+#$msbuild = '`"C:\Program Files `(x86`)\MSBuild\14.0\Bin\MSBuild.exe`"'
+#$msbuild ="${env:ProgramFiles(x86)}\MSBuild\14.0\Bin\MSBuild.exe"
+#$msbuild="""$msbuild""" 
+$options = "/p:VisualStudioVersion=14.0"
 $nugetPath = "C:\Nuget"
 $nugetFile = $nugetPath + "\nuget.exe"
 $nugetServer = ".\Publish"
@@ -32,7 +35,9 @@ if(Test-Path $outputPath)
  	Remove-Item -Path $outputPath -Confirm:$false -Recurse:$true
 }
 write-host "Building solution"
-Invoke-Expression ($msbuild + " " + $buildFile + " -verbosity:m " + $options) -ErrorAction:Stop
+$buildCommand = $msbuild + " " + $buildFile + " -verbosity:m " + $options
+write-host "Build Command: $buildCommand"
+#Invoke-Expression ($buildCommand) -ErrorAction:Stop
 write-host "Running nuget package solution"
 C:\Nuget\nuget.exe pack ..\everydayhero.Api.csproj -Prop Configuration=Release -outputdirectory $nugetServer 
 write-host "Packaged nuget file and saved it to $nugetServer"

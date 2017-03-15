@@ -34,7 +34,7 @@ namespace everydayhero.Api.Tests
 
         private static void ExecuteSampleQuery(Client client)
         {
-            var request = new RestRequest(string.Format("/api/v2/charities?campaign_ids={0}", TestConfig.TestData_Campaign_Uid), Method.GET);
+            var request = new RestRequest($"/api/v2/charities?campaign_ids={TestConfig.TestData_Campaign_Uid}", Method.GET);
             IRestResponse result = client.RestClient.Execute(request);
             Assert.IsTrue(result.StatusCode == HttpStatusCode.OK, "Didn't receive appropriate status code: " + result.StatusCode);
         }

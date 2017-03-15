@@ -1,6 +1,6 @@
 ﻿namespace everydayhero.Api.v3
 {
-    public class PageCreationFields
+    public class PageCreationFields<T>
     {
         /// <summary>
         ///     The uid of the user that you want to create a page for.
@@ -41,5 +41,8 @@
         public string campaign_id { get; set; }
         public string charity_id { get; set; }
         public string image { get; set; }
+
+        public T user_address { get; set; }
+
     }
 }

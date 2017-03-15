@@ -59,14 +59,38 @@ var client = new Client("https://edheroz.com", accessToken);
 
 **To create a page**
 ```
-var newPageInfo = new PageCreationFields
+var newPageInfo = new PageCreationFields<string>
 {
     birthday = "1980-01-01",
     campaign_id = "au-122",
     charity_id = "au-20",
     user_email = "myEmail@MyAddress.com.au",
     user_name = "username",
-    user_phone = "55556666"
+    user_phone = "55556666",
+    user_address = "Test address"
+};
+var pageCreatedResult = client.Pages.CreateSupporterPage(newPageInfo);
+var activationUrl = pageCreatedResult.activation_url;
+```
+**To create a page - with a detailed user address**
+```
+var newPageInfo = new PageCreationFields<UserAddress>
+{
+    birthday = "1980-01-01",
+    campaign_id = "au-122",
+    charity_id = "au-20",
+    user_email = "myEmail@MyAddress.com.au",
+    user_name = "username",
+    user_phone = "55556666",
+    user_address = new UserAddress
+    {
+        user_street_address = "Test street address",
+        user_extended_address = "Test extended address",
+        user_locality = "Test locality",
+        user_region = "Test region",
+        user_postal_code = "Test postal code",
+        user_country_name = "Test country name"
+    }
 };
 var pageCreatedResult = client.Pages.CreateSupporterPage(newPageInfo);
 var activationUrl = pageCreatedResult.activation_url;
@@ -74,7 +98,7 @@ var activationUrl = pageCreatedResult.activation_url;
 
 **To update a page**
 ```
-var pageInfo = new PageCreationFields
+var pageInfo = new PageCreationFields<string>
 {
     target = "500",
     name = "Fred",
@@ -85,7 +109,34 @@ var pageInfo = new PageCreationFields
     charity_id = "...",
     user_email = "my@email.address",
     user_name = "My User",
-    user_phone = "55556666"
+    user_phone = "55556666",
+    user_address = "Test address"
+};
+var result = client.Pages.UpdateSupporterPage(1, pageInfo);
+```
+**To update a page - with a detailed user address**
+```
+var pageInfo = new PageCreationFields<UserAddress>
+{
+    target = "500",
+    name = "Fred",
+    expires_at = DateTime.Now.AddDays(14).ToString("O"),
+    slug = "TheSlug" ,
+    birthday = "1980-01-01",
+    campaign_id = "...",
+    charity_id = "...",
+    user_email = "my@email.address",
+    user_name = "My User",
+    user_phone = "55556666",
+    user_address = new UserAddress
+    {
+        user_street_address = "Test street address",
+        user_extended_address = "Test extended address",
+        user_locality = "Test locality",
+        user_region = "Test region",
+        user_postal_code = "Test postal code",
+        user_country_name = "Test country name"
+    }
 };
 var result = client.Pages.UpdateSupporterPage(1, pageInfo);
 ```
