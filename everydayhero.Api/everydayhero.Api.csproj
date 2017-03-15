@@ -45,7 +45,6 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +83,7 @@
     <Compile Include="v3\Entities\Run.cs" />
     <Compile Include="v3\Entities\Page.cs" />
     <Compile Include="v3\Entities\User.cs" />
+    <Compile Include="v3\Entities\UserAddress.cs" />
     <Compile Include="v3\PagesClient.cs" />
     <Compile Include="v3\Entities\PageCreationFields.cs" />
   </ItemGroup>

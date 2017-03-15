@@ -18,7 +18,18 @@ namespace everydayhero.Api.v3
             RestClient = restClient;
         }
 
-        public PageCreatedResult CreateSupporterPage(PageCreationFields options)
+        public PageCreatedResult CreateSupporterPage(PageCreationFields<string> options)
+        {
+            var request = CreateRequest(EndPointConstants.ApiBaseV3, ServiceNameConstants.Pages, null, Method.POST, options);
+            var result = RestClient.Execute<PageCreatedResult>(request);
+            if (result.StatusCode == HttpStatusCode.OK || result.StatusCode == HttpStatusCode.Created)
+            {
+                return result.Data;
+            }
+            throw ExceptionHandler.GetFailedRequestException(result);
+        }
+
+        public PageCreatedResult CreateSupporterPage(PageCreationFields<UserAddress>  options)
         {
             var request = CreateRequest(EndPointConstants.ApiBaseV3, ServiceNameConstants.Pages, null, Method.POST, options);
             var result = RestClient.Execute<PageCreatedResult>(request);
@@ -32,7 +43,7 @@ namespace everydayhero.Api.v3
         public List<Page> GetSupporterPages(int page, int limit, string campaignUid)
         {
             var request = CreateRequest(EndPointConstants.ApiBaseV2, ServiceNameConstants.Pages,
-                string.Format("limit={0}&page={1}&campaign_uid={2}", limit, page, campaignUid), Method.GET);
+                $"limit={limit}&page={page}&campaign_uid={campaignUid}", Method.GET);
             var result = RestClient.Execute<PagesResult>(request);
             if (result.StatusCode == HttpStatusCode.OK)
             {
@@ -43,7 +54,7 @@ namespace everydayhero.Api.v3
         public List<Page> GetSupporterPages(int[] pageIds)
         {
             var request = CreateRequest(EndPointConstants.ApiBaseV2, ServiceNameConstants.Pages,
-                string.Format("limit={0}&page={1}&id={2}", pageIds.Length, 1, string.Join(",", pageIds)), Method.GET);
+                $"limit={pageIds.Length}&page={1}&id={string.Join(",", pageIds)}", Method.GET);
             var result = RestClient.Execute<PagesResult>(request);
             if (result.StatusCode == HttpStatusCode.OK)
             {
@@ -52,9 +63,20 @@ namespace everydayhero.Api.v3
             throw ExceptionHandler.GetFailedRequestException(result);
         }
 
-        public Page UpdateSupporterPage(int id, PageCreationFields updateDetails)
+        public Page UpdateSupporterPage(int id, PageCreationFields<string> updateDetails)
         {
-            var request = CreateRequest(EndPointConstants.ApiBaseV3, ServiceNameConstants.Pages + string.Format("/{0}", id), null, Method.PUT, updateDetails);
+            var request = CreateRequest(EndPointConstants.ApiBaseV3, ServiceNameConstants.Pages + $"/{id}", null, Method.PUT, updateDetails);
+            var result = RestClient.Execute<PageResult>(request);
+            if (result.StatusCode == HttpStatusCode.OK || result.StatusCode == HttpStatusCode.Accepted) //TODO: check the return code on a succesful result
+            {
+                return result.Data.page;
+            }
+            throw ExceptionHandler.GetFailedRequestException(result);
+        }
+
+        public Page UpdateSupporterPage(int id, PageCreationFields<UserAddress> updateDetails)
+        {
+            var request = CreateRequest(EndPointConstants.ApiBaseV3, ServiceNameConstants.Pages + $"/{id}", null, Method.PUT, updateDetails);
             var result = RestClient.Execute<PageResult>(request);
             if (result.StatusCode == HttpStatusCode.OK || result.StatusCode == HttpStatusCode.Accepted) //TODO: check the return code on a succesful result
             {

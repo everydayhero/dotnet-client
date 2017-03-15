@@ -54,13 +54,36 @@ Dim client = New Client("https://edheroz.com", accessToken)
 
 **To create a page**
 ```
-Dim newPageInfo = New PageCreationFields With {
+Dim newPageInfo = New PageCreationFields(Of String) With {
 	.birthday = "1980-01-01",
 	.campaign_id = "au-122",
 	.charity_id = "au-20",
 	.user_email = "myEmail@MyAddress.com.au",
 	.user_name = "username",
-	.user_phone = "55556666"
+	.user_phone = "55556666",
+    .user_address = "Test address"
+}
+Dim pageCreatedResult = client.Pages.CreateSupporterPage(newPageInfo)
+Dim activationUrl = pageCreatedResult.activation_url
+```
+
+**To create a page - with a detailed user address**
+```
+Dim newPageInfo = New PageCreationFields(Of UserAddress) With {
+	.birthday = "1980-01-01",
+	.campaign_id = "au-122",
+	.charity_id = "au-20",
+	.user_email = "myEmail@MyAddress.com.au",
+	.user_name = "username",
+	.user_phone = "55556666",
+    .user_address = new UserAddress With {
+        .user_street_address = "Test street address",
+        .user_extended_address = "Test extended address",
+        .user_locality = "Test locality",
+        .user_region = "Test region",
+        .user_postal_code = "Test postal code",
+        .user_country_name = "Test country name"
+    }
 }
 Dim pageCreatedResult = client.Pages.CreateSupporterPage(newPageInfo)
 Dim activationUrl = pageCreatedResult.activation_url
@@ -68,7 +91,7 @@ Dim activationUrl = pageCreatedResult.activation_url
 
 **To update a page**
 ```
-Dim pageInfo = New PageCreationFields With {
+Dim pageInfo = New PageCreationFields(Of String) With {
 	.target = "500",
 	.name = "Fred",
 	.expires_at = DateTime.Now.AddDays(14).ToString("O"),
@@ -78,10 +101,35 @@ Dim pageInfo = New PageCreationFields With {
 	.charity_id = "...",
 	.user_email = "my@email.address",
 	.user_name = "My User",
-	.user_phone = "55556666"
+	.user_phone = "55556666",
+    .user_address = "Test address"
 }
 Dim result = client.Pages.UpdateSupporterPage(1, pageInfo)
+```
 
+**To update a page - with a detailed user address**
+```
+Dim pageInfo = New PageCreationFields(Of UserAddress) With {
+	.target = "500",
+	.name = "Fred",
+	.expires_at = DateTime.Now.AddDays(14).ToString("O"),
+	.slug = "TheSlug",
+	.birthday = "1980-01-01",
+	.campaign_id = "...",
+	.charity_id = "...",
+	.user_email = "my@email.address",
+	.user_name = "My User",
+	.user_phone = "55556666",
+    .user_address = new UserAddress With {
+        .user_street_address = "Test street address",
+        .user_extended_address = "Test extended address",
+        .user_locality = "Test locality",
+        .user_region = "Test region",
+        .user_postal_code = "Test postal code",
+        .user_country_name = "Test country name"
+    }
+}
+Dim result = client.Pages.UpdateSupporterPage(1, pageInfo)
 ```
 
 **To get pages using pagination**

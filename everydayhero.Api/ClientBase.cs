@@ -13,16 +13,16 @@ namespace everydayhero.Api
             }
         }
 
-        protected IRestRequest CreateRequest(string apiVersion, string path, string queryString, Method method, object body = null)
+        internal IRestRequest CreateRequest(string apiVersion, string path, string queryString, Method method, object body = null)
         {
-            var uri = new Uri(string.Format("{0}/{1}{2}{3}", apiVersion, path, string.IsNullOrEmpty(queryString) ? "" : "?", queryString), UriKind.Relative);
+            var uri = new Uri($"{apiVersion}/{path}{(string.IsNullOrEmpty(queryString) ? "" : "?")}{queryString}", UriKind.Relative);
             var request = new RestRequest(uri, method);
             SetContentType(method, request);
             SetBody(body, request);
             return request;
         }
 
-        private static void SetBody(object body, RestRequest request)
+        private static void SetBody(object body, IRestRequest request)
         {
             if (body != null)
             {

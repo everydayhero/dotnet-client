@@ -244,3 +244,4 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 *.DS_Store
+/everydayhero.Api.Tests/App-current.config

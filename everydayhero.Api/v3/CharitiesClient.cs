@@ -17,7 +17,8 @@ namespace everydayhero.Api.v3
 
         public List<Charity> GetCharities(int page, int limit, string[] campaignIds)
         {
-            var request = CreateRequest(EndPointConstants.ApiBaseV2, ServiceNameConstants.Charities, string.Format("limit={0}&page={1}&campaign_ids={2}", limit, page, string.Join(",", campaignIds)), Method.GET);
+            var request = CreateRequest(EndPointConstants.ApiBaseV2, ServiceNameConstants.Charities,
+                $"limit={limit}&page={page}&campaign_ids={string.Join(",", campaignIds)}", Method.GET);
             var result = RestClient.Execute<CharitiesResult>(request);
             if (result.StatusCode == HttpStatusCode.OK)
             {
@@ -28,7 +29,7 @@ namespace everydayhero.Api.v3
 
         public Charity GetCharity(string charityId)
         {
-            var request = CreateRequest(EndPointConstants.ApiBaseV2, string.Format("{0}/{1}", ServiceNameConstants.Charities, charityId), string.Empty, Method.GET);
+            var request = CreateRequest(EndPointConstants.ApiBaseV2, $"{ServiceNameConstants.Charities}/{charityId}", string.Empty, Method.GET);
             var result = RestClient.Execute<CharityResult>(request);
             if (result.StatusCode == HttpStatusCode.OK)
             {
