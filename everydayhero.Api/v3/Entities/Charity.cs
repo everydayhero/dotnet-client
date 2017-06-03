@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace everydayhero.Api.v3
@@ -23,7 +24,7 @@ namespace everydayhero.Api.v3
         public string registration_number { get; set; }
         public string registration_number_label { get; set; }
         public string merchant_name { get; set; }
-        public int page_count { get; set; }
+        public long page_count { get; set; }
         public string public_email { get; set; }
         public string phone { get; set; }
         public string financial_context_id { get; set; }

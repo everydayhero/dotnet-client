@@ -80,6 +80,10 @@ namespace everydayhero.Api.Authentication
             var authRequest = CreateAuthenticationRequest(proxy);
             try
             {
+                // Explicitly support SSL3 and TLS 1.1 and 1.2
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+
+
                 using (var response = (HttpWebResponse) authRequest.GetResponse())
                 {
                     var authResult = GetAuthResponse(response);
