@@ -245,3 +245,8 @@ ModelManifest.xml
 .fake/
 *.DS_Store
 /everydayhero.Api.Tests/App-current.config
+
+.DS_Store
+**/_BuildFiles/*.dll
+dev.app.config
+**/.DS_Store

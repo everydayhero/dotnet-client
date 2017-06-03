@@ -1,9 +1,15 @@
-﻿using System.Net;
+﻿using System.IO;
+using System.Net;
+using System.Reflection;
 using everydayhero.Api.Exceptions;
+using everydayhero.Api.v3;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RestSharp;
+using RestSharp.Deserializers;
 
 namespace everydayhero.Api.Tests
 {
+
     [TestClass]
     public class CharitiesTests : UnitTestBase
     {
@@ -12,6 +18,25 @@ namespace everydayhero.Api.Tests
         {
             var client = GetClient();
             var charities = client.Charity.GetCharities(1, 10, new[] { TestConfig.TestData_Campaign_Uid });
+            Assert.IsNotNull(charities);
+            Assert.IsTrue(charities.Count > 0, "No charities found");
+        }
+
+        [TestMethod]
+        public void GetOneThousandCharities()
+        {
+            var client = GetClient();
+            var charities = client.Charity.GetCharities(1, 1000, new[] { TestConfig.TestData_Campaign_Uid });
+            Assert.IsNotNull(charities);
+            Assert.IsTrue(charities.Count > 0, "No charities found");
+        }
+
+        [TestMethod]
+        public void GetTwoThousandCharities()
+        {
+            var client = GetClient();
+            client.RestClient.Timeout = 600000; //10 mins
+            var charities = client.Charity.GetCharities(1, 2000, new[] { TestConfig.TestData_Campaign_Uid });
             Assert.IsNotNull(charities);
             Assert.IsTrue(charities.Count > 0, "No charities found");
         }
@@ -44,6 +69,24 @@ namespace everydayhero.Api.Tests
                 Assert.IsTrue(ex.StatusCode == HttpStatusCode.NotFound, "Invalid status code returned: " + ex.StatusCode);
                 throw;
             }
+        }
+
+        public static string GetSampleDataString(string resourceName)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+
+            using (var stream = assembly.GetManifestResourceStream(resourceName))
+            {
+                if (stream != null)
+                {
+                    using (var reader = new StreamReader(stream))
+                    {
+                        return reader.ReadToEnd();
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }
