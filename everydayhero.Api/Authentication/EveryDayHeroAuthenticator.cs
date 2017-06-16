@@ -81,7 +81,11 @@ namespace everydayhero.Api.Authentication
             try
             {
                 // Explicitly support SSL3 and TLS 1.1 and 1.2
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+                // ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+
+                // Fix for .NET v4.0 - as it doesn't implement SecurityProtocolType.Tls12 or SecurityProtocolType.Tls11
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | (SecurityProtocolType)768 | (SecurityProtocolType)3072 | SecurityProtocolType.Tls;
+
 
 
                 using (var response = (HttpWebResponse) authRequest.GetResponse())
