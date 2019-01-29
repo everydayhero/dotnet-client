@@ -168,7 +168,7 @@ namespace everydayhero.Api.Authentication
             // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
 
             // Fix for .NET v4.0 - as it doesn't implement SecurityProtocolType.Tls12 or SecurityProtocolType.Tls11
-            return (SecurityProtocolType)192 | (SecurityProtocolType)768 | (SecurityProtocolType)3072;
+            return (SecurityProtocolType)768 | (SecurityProtocolType)3072;
         }
     }
 }
