@@ -80,14 +80,8 @@ namespace everydayhero.Api.Authentication
             var authRequest = CreateAuthenticationRequest(proxy);
             try
             {
-                // Explicitly support SSL3 and TLS 1.1 and 1.2
-                // ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
-
-                // Fix for .NET v4.0 - as it doesn't implement SecurityProtocolType.Tls12 or SecurityProtocolType.Tls11
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | (SecurityProtocolType)768 | (SecurityProtocolType)3072 | SecurityProtocolType.Tls;
-
-
-
+                ServicePointManager.SecurityProtocol = SecurityProtocalTypes();
+                
                 using (var response = (HttpWebResponse) authRequest.GetResponse())
                 {
                     var authResult = GetAuthResponse(response);
@@ -147,7 +141,7 @@ namespace everydayhero.Api.Authentication
         /// <returns></returns>
         private HttpWebRequest CreateAuthenticationRequest(IWebProxy proxy)
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+            ServicePointManager.SecurityProtocol = SecurityProtocalTypes();
             ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
             var requestUri = new Uri(_serviceUri,
                 $"{EndPointConstants.OAuthEndPoint}?&{EndPointConstants.OAuthUserNameKey}={ClientId}&{EndPointConstants.OAuthSecretKey}={ClientSecret.ToInsecureString()}&{EndPointConstants.GrantTypeKey}={GrantTypeConstants.ClientCredentials}");
@@ -166,6 +160,15 @@ namespace everydayhero.Api.Authentication
             request.AutomaticDecompression = DecompressionMethods.None;
             request.CookieContainer = _cookieContainer;
             return request;
+        }
+
+        private SecurityProtocolType SecurityProtocalTypes()
+        {
+            // Explicitly support SSL3 and TLS 1.1 and 1.2
+            // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
+            // Fix for .NET v4.0 - as it doesn't implement SecurityProtocolType.Tls12 or SecurityProtocolType.Tls11
+            return (SecurityProtocolType)192 | (SecurityProtocolType)768 | (SecurityProtocolType)3072;
         }
     }
 }
