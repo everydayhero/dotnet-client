@@ -29,7 +29,7 @@ End Try
     - Get Charity
 
 ## Minimum requirements
--.Net 4.0+
+-.Net 4.5+
 
 ## About authentication
 You will need to create an account and register an application by following instructions on https://gist.github.com/bradparker/b5074aae4b9a13e5dc7032f703ab4410#step-52-creating-a-supporter-page
