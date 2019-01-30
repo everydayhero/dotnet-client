@@ -10,13 +10,13 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>EverydayHero .Net API for integration with the REST Services</description>
     <releaseNotes />
-    <references>
-      <group targetFramework="net40">
-        <reference file="$id$.dll" />
-      </group>
-    </references>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="8.0.3" />
+      <dependency id="RestSharp" version="105.2.3" />
+    </dependencies>
   </metadata>
   <files>
     <file src="../readme.md" />
+    <file src="bin\Release\everydayhero.Api.*" target="lib\net40" />
   </files>
 </package>
